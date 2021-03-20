@@ -1,9 +1,8 @@
-// Load Wi-Fi library
 #include <ESP8266WiFi.h>
 
 // Replace with your network credentials
-const char* ssid     = "your router ssid";
-const char* password = "your router password";
+const char* ssid     = "Raspberry";
+const char* password = "sanketvinayakprabhu";
 
 // Set web server port number to 80
 WiFiServer server(80);
@@ -79,11 +78,11 @@ void loop(){
             // turns the GPIOs on and off
             if (header.indexOf("GET /5/on") >= 0) {
               Serial.println("GPIO 5 on");
-              output16State = "on";
+              output5State = "on";
               digitalWrite(output5, HIGH);
             } else if (header.indexOf("GET /5/off") >= 0) {
               Serial.println("GPIO 5 off");
-              output16State = "off";
+              output5State = "off";
               digitalWrite(output5, LOW);
             } else if (header.indexOf("GET /4/on") >= 0) {
               Serial.println("GPIO 4 on");
@@ -113,9 +112,9 @@ void loop(){
             client.println("<body><h1>ESP8266 Web Server</h1>");
             
             // Display current state, and ON/OFF buttons for GPIO 5  
-            client.println("<p>GPIO 5 - State " + output16State + "</p>");
+            client.println("<p>GPIO 5 - State " + output5State + "</p>");
             // If the output5State is off, it displays the ON button       
-            if (output16State=="off") {
+            if (output5State=="off") {
               client.println("<p><a href=\"/5/on\"><button class=\"btn btn-primary\">ON</button></a></p>");
             } else {
               client.println("<p><a href=\"/5/off\"><button class=\"btn btn-danger\">OFF</button></a></p>");
